@@ -76,4 +76,11 @@ class User {
     return "L'email ou le mot de passe est incorrect";
   }
 }
+
+// mise en place de la verification de l'email pour pouvoir stocker l'id de l'utilisateur en session
+public function getUserByEmail($email){
+  $stmt = $this->conn->prepare("SELECT id FROM users WHERE email = :email");
+  $stmt->execute([$email]);
+  return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }
