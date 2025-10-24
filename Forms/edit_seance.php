@@ -49,16 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Modifier une séance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
 </head>
 <body>
   <div class="container mt-5">
-  <h1 classs="mb-4 text-primary"> ✏️ Modifier une séance</h1>
+  <h3 classs="mb-4 text-primary text-center"> ✏️ Modifier une séance</h3>
 
   <?php if($message): ?>
-    <p class="alert alert-sucess"><?= htmlspecialchars($message) ?></p>
+    <p class="alert alert-success"><?= htmlspecialchars($message) ?></p>
   <?php endif; ?>
 
-  <form method="POST" class="card p-4 shadow-sm bg-light rounded">
+  <form method="POST" class="card p-4 shadow-sm bg-light rounded mx-auto" style="max-width: 500px;">
     <div class class="mb-3">
     <label for="type" class="form-label">Type de séance : </label>
     <input type="text" name="type" class="form-control" value="<?= htmlspecialchars($data['type']) ?>" required><br>
@@ -80,9 +82,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 
-    <button type="submit" class="btn btn-primary w-100">Mettre à jour</button>
+    <button type="submit" class="btn" style="background-color: #5bc0de">Mettre à jour</button>
     </form>
- <p class="mt-3 text-center"><a href="dashboard.php" class="btn btn-secondary ms-2">⬅️ Retour au tableau de bord</a></p>
+
+    <p class="mt-3 text-center">
+  <a href="dashboard.php" class="btn btn-light border rounded-circle shadow-sm" title="Retour">
+  <i class="bi bi-arrow-left-circle"></i>
+  </a>
+</p>
 
   </div>
 

@@ -74,45 +74,82 @@ if (!$seances) {
     <meta charset="UTF-8">
     <title>PlumbLifterPlaner🏋️‍♂️</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSr3zE+4z9aQ8K7uHk5DA1bz5Oe8qKjGZFxP6CwXkIBwz0V7Q3BQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
 </head>
+
+
 <body>
-  <!--Affiche le nom de l'utilisateur avec connexion -->
-  <h1>Bienvenue, <?=htmlspecialchars($user['prenom'])?> 👋 </h1>
+  <div class="container mt-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded mb-4">
+  <a class="navbar-brand px-3 py-2 text-dark fw-bold" href="/">PlumbLifterPlaner 🏋️‍♂️</a>
+
+    <form method="GET" class="d-flex mx-auto">
+      <input type="text" name="search" class="form-control me-2" placeholder="rechercher une séance" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+      <button type="submit" class="btn btn-outline-secondary">🔍</button>
+      <a href="dashboard.php" class="btn btn-light ms-2">Annuler</a>
+    </form>
+
+
+    <a class="btn btn-outline-danger" href="logout.php">🚪 Déconnexion</a>
+    </nav>
+
+     <!--Affiche le nom de l'utilisateur avec connexion -->
+     <div class="mb-4">
+    <h1>Bienvenue, <?=htmlspecialchars($user['prenom'])?> 👋 </h1>
+    </div>
+
 
   <?php if(isset($_SESSION['message'])): ?>
   <p style="color: green;"><?= htmlspecialchars($_SESSION['message']) ?></p>
   <?php unset($_SESSION['message']); // supprime le message après affichage, message stocké en session apres creation de seance ?>
 <?php endif; ?>
 
-<a href="logout.php">🚪 Se déconnecter</a>
 
-    <h2> 🔍 Rechercher une séance</h2>
-    <form method="GET" class="mb-3">
-      <input type="text" name="search" placeholder="rechercher une séance" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
-      <button type="submit" class="btn btn-secondary btn-sm">Rechercher</button>
-      <a href="dashboard.php" class="btn btn-secondary btn-sm">Annuler</a>
-    </form>
+<div class="row">
 
-    <h2> Ajouter une séance</h2>
+<div class="col-md-6 mb-4">
+<div class="card p-4 h-100 shadow-sm bg-light rounded">
+<h2 class="h5 mb-3">➕ Ajouter une séance</h2>
     <form method="POST">
-      <label> Type de séance :</label>
-      <input type="text" name="type" required><br>
+      <div class="class mb-3">
+      <label class="form-label"> Type de séance :</label>
+      <input type="text" name="type" class="form-control" required><br>
+    </div>
 
-      <label>Durée de la séance :</label>
-      <input type="text" name="duree" placeholder="ex: 45min" required><br>
+      <div class="mb-3">
+      <label class="form-label">Durée de la séance :</label>
+      <input type="text" class="form-control" name="duree" placeholder="ex: 45min" required><br>
+      </div>
 
-      <label>Date de la séance :</label>
-      <input type="datetime-local" name="date" required><br>
+      <div class="mb-3">
+      <label class="form-label">Date de la séance :</label>
+      <input type="datetime-local"  class="form-control" name="date" required><br>
+      </div>
 
-      <label>Notes :</label>
-      <textarea name="notes"></textarea><br>
+        <div class="mb-3">
+      <label class="form-label">Notes :</label>
+      <textarea class="form-control" name="notes"></textarea><br>
+      </div>
 
-      <button type="submit" name="ajouter">Ajouter</button>
+      <button type="submit" name="ajouter" class="btn w-100" style="background-color: #5bc0de">Ajouter</button>
     </form>
+  </div>
+</div>
 
-    <h2>📅 Mes séances</h2>
+<div class="col-md-6 mb-4">
+<div class="card p-4 h-100 shadow-sm bg-light rounded">
+<h2 class="h5 mb-3">📅 Mes séances</h2>
   <?php if (count($seances) > 0): ?>
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-hover">
+            <thead class="table-dark">
       <tr>
         <th>Type</th>
         <th>Durée</th>
@@ -120,23 +157,40 @@ if (!$seances) {
         <th>Notes</th>
         <th>Actions</th>
       </tr>
+      </thead>
+      <tbody>
       <?php foreach ($seances as $s): ?>
         <tr>
           <td><?= htmlspecialchars($s['type']) ?></td>
           <td><?= htmlspecialchars($s['duree']) ?></td>
           <td><?= htmlspecialchars($s['date']) ?></td>
           <td><?= htmlspecialchars($s['notes']) ?></td>
-          <td>
-  <a href="edit_seance.php?id=<?= $s['id'] ?>">✏️ Modifier</a>
-  <a href="dashboard.php?delete=<?= $s['id'] ?>" onclick="return confirm('Supprimer cette séance ?')">🗑️ Supprimer</a>
+<td>
+<div class="d-flex gap-2">
+    <a href="edit_seance.php?id=<?= $s['id'] ?>"
+       title="Modifier"
+       style="text-decoration: none; font-size: 1rem;">
+       ✏️
+    </a>
+    <a href="dashboard.php?delete=<?= $s['id'] ?>"
+       title="Supprimer"
+       onclick="return confirm('Supprimer cette séance ?')"
+       style="text-decoration: none; font-size: 1rem;">
+       🗑️
+    </a>
+  </div>
 </td>
-        </tr>
+      </tr>
       <?php endforeach; ?>
+      </tbody>
     </table>
   <?php else: ?>
     <p>Aucune séance enregistrée pour l’instant.</p>
   <?php endif; ?>
-
-
+  </div>
+  </div>
+  </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
