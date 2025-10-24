@@ -23,8 +23,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 // creation de nouvelle seance
 $seance = new Seance();
 
-//instance de seance vide pour pouvoir ensuite recuperer les données
-$seances = [];
 // instancié a vide afin de generer le message une fois la demande faite
 $message= "";
 
@@ -50,6 +48,14 @@ if(isset($_GET['delete'])){
   $seance->delete($id);
   header("Location: dashboard.php");
   exit;
+}
+
+// récupération des séances de l'utilisateur
+$seances = $seance->getAllByUser($user_id);
+
+// si aucune séance trouvée, initialisation d'un tableau vide
+if (!$seances) {
+  $seances = [];
 }
 ?>
 
