@@ -20,11 +20,11 @@ $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// creation de nouvelle seance
-$seance = new Seance();
 
 // instancié a vide afin de generer le message une fois la demande faite
 $message= "";
+// creation de nouvelle seance
+$seance = new Seance();
 
 // ajout de la seance
 // champs requis pour creer une seance
@@ -35,13 +35,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])){
   $notes = $_POST['notes'] ?? '';
 
   if($seance->create($user_id, $type, $duree, $date, $notes)){
-    // si la creation est réussie
-    $message = " ✅ La seance a bien été créée";
+    $_SESSION['message'] = "✅ La séance a bien été créée";
   } else {
-    $message = " ❌ Une erreur est survenue lors de la création de la seance";
+    $_SESSION['message'] = "❌ Une erreur est survenue lors de la création de la séance";
   }
 
-  // recharge la page pour eviter le repost du formulaire, et suppression du message de succès ou d'echec apres affichage
+  // redirection uniquement après l'ajout
   header("Location: dashboard.php");
   exit;
 }
@@ -50,6 +49,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])){
 if(isset($_GET['delete'])){
   $id = (int) $_GET['delete'];
   $seance->delete($id);
+  $_SESSION['message'] = "✅ La séance a été supprimée";
   header("Location: dashboard.php");
   exit;
 }
@@ -61,9 +61,6 @@ if($search){
 } else {
   $seances = $seance->getAllByUser($user_id);
 }
-
-// récupération des séances de l'utilisateur
-$seances = $seance->getAllByUser($user_id);
 
 // si aucune séance trouvée, initialisation d'un tableau vide
 if (!$seances) {

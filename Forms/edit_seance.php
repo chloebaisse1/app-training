@@ -42,9 +42,43 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $message = " ✅ La séance a bien été modifiée";
 
     // permet de rafraichir la page du dashboard apres 1 sec)
-    header("Refresh: 1; URL=dashboard.php");
+    header("Location: dashboard.php");
   } else {
     $message=" ❌ Une erreur est survenue lors de la modification de la séance";
   }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Modifier une séance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <h1> ✏️ Modifier une séance</h1>
+
+  <?php if($message): ?>
+    <p><?= htmlspecialchars($message) ?></p>
+  <?php endif; ?>
+
+  <form method="POST">
+    <label for="type">Type de séance : </label>
+    <input type="text" name="type" value="<?= htmlspecialchars($data['type']) ?>" required><br>
+
+    <label for="duree">Durée de la séance :</label>
+    <input type="text" name="duree" value="<?= htmlspecialchars($data['duree']) ?>" required><br>
+
+    <label for="date">Date de la séance :</label>
+    <input type="datetime-local" name="date" value="<?= date('Y-m-d\TH:i', strtotime($data['date'])) ?>" required><br>
+
+    <label for="notes">Notes :</label>
+    <textarea name="notes"><?= htmlspecialchars($data['notes']) ?></textarea><br>
+
+    <button type="submit">Mettre à jour</button>
+  </form>
+
+  <p><a href="dashboard.php">⬅️ Retour au tableau de bord</a></p>
+</body>
+</html>
