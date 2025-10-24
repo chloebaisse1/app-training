@@ -84,6 +84,8 @@ if (!$seances) {
   <?php unset($_SESSION['message']); // supprime le message après affichage, message stocké en session apres creation de seance ?>
 <?php endif; ?>
 
+<a href="logout.php">🚪 Se déconnecter</a>
+
     <h2> 🔍 Rechercher une séance</h2>
     <form method="GET" class="mb-3">
       <input type="text" name="search" placeholder="rechercher une séance" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
@@ -108,35 +110,33 @@ if (!$seances) {
       <button type="submit" name="ajouter">Ajouter</button>
     </form>
 
-    <h2> 📅 Mes séances</h2>
-
-    <?php if (count($seances) > 0): // verifie le nombre de seance, si sup a 0 affiche des seances ?>
-      <table border="1" cellpadding="8">
+    <h2>📅 Mes séances</h2>
+  <?php if (count($seances) > 0): ?>
+    <table border="1" cellpadding="8">
+      <tr>
+        <th>Type</th>
+        <th>Durée</th>
+        <th>Date</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+      <?php foreach ($seances as $s): ?>
         <tr>
-          <th>Type</th>
-          <th>Durée</th>
-          <th>Date</th>
-          <th>Notes</th>
-          <th>Actions</th>
+          <td><?= htmlspecialchars($s['type']) ?></td>
+          <td><?= htmlspecialchars($s['duree']) ?></td>
+          <td><?= htmlspecialchars($s['date']) ?></td>
+          <td><?= htmlspecialchars($s['notes']) ?></td>
+          <td>
+  <a href="edit_seance.php?id=<?= $s['id'] ?>">✏️ Modifier</a>
+  <a href="dashboard.php?delete=<?= $s['id'] ?>" onclick="return confirm('Supprimer cette séance ?')">🗑️ Supprimer</a>
+</td>
         </tr>
+      <?php endforeach; ?>
+    </table>
+  <?php else: ?>
+    <p>Aucune séance enregistrée pour l’instant.</p>
+  <?php endif; ?>
 
-        <?php foreach($seances as $s): // une fois les seances trouvé boucle sur les differentes seances avec les informations ?>
-          <tr>
-            <td><?= htmlspecialchars($s['type']) ?></td>
-            <td><?= htmlspecialchars($s['duree']) ?></td>
-            <td><?= htmlspecialchars($s['date']) ?></td>
-            <td><?= htmlspecialchars($s['notes']) ?></td>
-            <td>
-
-            <a href="edit_seance.php?id=<?= $s['id'] ?>">✏️ Modifier</a>
-            <a href="dashboard.php?delete=<?= $s['id'] ?>" onclick="return confirm('Supprimer cette séance ?')">🗑️ Supprimer</a>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </table>
-        <?php else : // si pas de seance trouvé indiquer un message ?>
-          <p>Aucune séance pour le moment.</p>
-          <?php endif; ?>
 
 </body>
 </html>
