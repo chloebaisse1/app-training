@@ -178,6 +178,9 @@ if (!$seances) {
        style="text-decoration: none; font-size: 1rem;">
        🗑️
     </a>
+    <a href="download-pdf.php" style="text-decoration: none; color: inherit; font-size: 1.5rem;">
+    <i class="bi bi-download"></i>
+</a>
   </div>
 </td>
       </tr>
