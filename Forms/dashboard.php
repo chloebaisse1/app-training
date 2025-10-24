@@ -40,6 +40,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])){
   } else {
     $message = " ❌ Une erreur est survenue lors de la création de la seance";
   }
+
+  // recharge la page pour eviter le repost du formulaire, et suppression du message de succès ou d'echec apres affichage
+  header("Location: dashboard.php");
+  exit;
 }
 
 // suppression d'une séance
@@ -48,6 +52,14 @@ if(isset($_GET['delete'])){
   $seance->delete($id);
   header("Location: dashboard.php");
   exit;
+}
+
+// gestion de recherche
+$search = $_GET['search'] ?? '';
+if($search){
+  $seances = $seance->searchByUser($user_id, $search);
+} else {
+  $seances = $seance->getAllByUser($user_id);
 }
 
 // récupération des séances de l'utilisateur
@@ -70,10 +82,17 @@ if (!$seances) {
   <!--Affiche le nom de l'utilisateur avec connexion -->
   <h1>Bienvenue, <?=htmlspecialchars($user['prenom'])?> 👋 </h1>
 
-  <?php if($message): //afficher un message apres le CRUD ?>
-    <p style="color: green;"><?= htmlspecialchars($message) ?></p>
-    <?php endif; ?>
+  <?php if(isset($_SESSION['message'])): ?>
+  <p style="color: green;"><?= htmlspecialchars($_SESSION['message']) ?></p>
+  <?php unset($_SESSION['message']); // supprime le message après affichage, message stocké en session apres creation de seance ?>
+<?php endif; ?>
 
+    <h2> 🔍 Rechercher une séance</h2>
+    <form method="GET" class="mb-3">
+      <input type="text" name="search" placeholder="rechercher une séance" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+      <button type="submit" class="btn btn-secondary btn-sm">Rechercher</button>
+      <a href="dashboard.php" class="btn btn-secondary btn-sm">Annuler</a>
+    </form>
 
     <h2> Ajouter une séance</h2>
     <form method="POST">
