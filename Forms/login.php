@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   if($result === true){
 
-    // si l'email et le mot de passe sont valides, on recuperr l'id de l'utilisateur pour le stocker pour la session
+    // si l'email et le mot de passe sont valides, on recupere l'id de l'utilisateur pour le stocker pour la session
     $db = new Database();
     $conn = $db->connect();
     $stmt = $conn->prepare("SELECT id FROM users WHERE email  = ?");
