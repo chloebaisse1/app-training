@@ -42,4 +42,13 @@ class Seance {
     return $stmt->execute([$id]);
   }
 
+
+  // BONUS
+  // rechercher des séances par user_id et par mot clé
+  public function searchByUser($user_id, $search){
+    $stmt = $this->conn->prepare("SELECT * FROM seances WHERE user_id = ? AND (type LIKE ? OR DATE(date) LIKE ?) ORDER BY date DESC");
+    $likeSearch = "%$search%";
+    $stmt->execute([$user_id, $likeSearch, $likeSearch]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
