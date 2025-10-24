@@ -37,5 +37,9 @@ class Seance {
   }
 
   // supprimer une seance
+  public function delete($id){
+    $stmt = $this->conn->prepare("DELETE FROM seances WHERE id = ?");
+    return $stmt->execute([$id]);
+  }
 
 }
