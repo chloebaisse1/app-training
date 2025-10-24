@@ -40,3 +40,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])){
     $message = " ❌ Une erreur est survenue lors de la création de la seance";
   }
 }
+
+// suppression d'une séance
+if(isset($_GET['delete'])){
+  $id = (int) $_GET['delete'];
+  $seance->delete($id);
+  header("Location: dashboard.php");
+  exit;
+}
+?>
