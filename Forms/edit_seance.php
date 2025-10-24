@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 
-    <button type="submit" class="btn" style="background-color: #5bc0de">Mettre à jour</button>
+    <button type="submit" class="btn w-100" style="background-color: #5bc0de">Mettre à jour</button>
     </form>
 
     <p class="mt-3 text-center">
