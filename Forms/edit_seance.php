@@ -51,28 +51,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <h1> ✏️ Modifier une séance</h1>
+  <div class="container mt-5">
+  <h1 classs="mb-4 text-primary"> ✏️ Modifier une séance</h1>
 
   <?php if($message): ?>
-    <p><?= htmlspecialchars($message) ?></p>
+    <p class="alert alert-sucess"><?= htmlspecialchars($message) ?></p>
   <?php endif; ?>
 
-  <form method="POST">
-    <label for="type">Type de séance : </label>
-    <input type="text" name="type" value="<?= htmlspecialchars($data['type']) ?>" required><br>
+  <form method="POST" class="card p-4 shadow-sm bg-light rounded">
+    <div class class="mb-3">
+    <label for="type" class="form-label">Type de séance : </label>
+    <input type="text" name="type" class="form-control" value="<?= htmlspecialchars($data['type']) ?>" required><br>
+  </div>
 
-    <label for="duree">Durée de la séance :</label>
-    <input type="text" name="duree" value="<?= htmlspecialchars($data['duree']) ?>" required><br>
+  <div class="mb-3">
+    <label for="duree" class="form-label">Durée de la séance :</label>
+    <input type="text" name="duree" class="form-control" value="<?= htmlspecialchars($data['duree']) ?>" required><br>
+    </div>
 
-    <label for="date">Date de la séance :</label>
-    <input type="datetime-local" name="date" value="<?= date('Y-m-d\TH:i', strtotime($data['date'])) ?>" required><br>
+    <div class="mb-3">
+    <label for="date" class="form-label">Date de la séance :</label>
+    <input type="datetime-local" class="form-control" name="date" value="<?= date('Y-m-d\TH:i', strtotime($data['date'])) ?>" required><br>
+    </div>
 
-    <label for="notes">Notes :</label>
-    <textarea name="notes"><?= htmlspecialchars($data['notes']) ?></textarea><br>
+    <div class="mb-3">
+    <label for="notes" class="form-label">Notes :</label>
+    <textarea  class="form-control"name="notes"><?= htmlspecialchars($data['notes']) ?></textarea><br>
+    </div>
 
-    <button type="submit">Mettre à jour</button>
-  </form>
 
-  <p><a href="dashboard.php">⬅️ Retour au tableau de bord</a></p>
+    <button type="submit" class="btn btn-primary w-100">Mettre à jour</button>
+    </form>
+ <p class="mt-3 text-center"><a href="dashboard.php" class="btn btn-secondary ms-2">⬅️ Retour au tableau de bord</a></p>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
