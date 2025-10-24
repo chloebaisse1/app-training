@@ -13,7 +13,7 @@ class Seance {
 
   // creation d'une seance
   public function create($user_id, $type, $duree, $date, $notes){
-    $stmt = $this->conn->prepare("INSERT INTO seances (user_id, type, duree, date, notes) VALUE (?, ?, ?, ?, ?)");
+    $stmt = $this->conn->prepare("INSERT INTO seances (user_id, type, duree, date, notes) VALUES (?, ?, ?, ?, ?)");
     return $stmt->execute([$user_id, $type, $duree, $date, $notes]);
   }
   // récupération des seances d'un utilisateur
