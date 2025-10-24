@@ -51,4 +51,29 @@ class User {
         return "Erreur : " . $e->getMessage();
     }
   }
+
+   // connexion de l'utilisateur
+   public function login($email, $password){
+
+    // trim va verifier que les champs ne contiennent que des caractères
+  $email = trim($email ?? '');
+  $password = trim($password ?? '');
+
+    // filter_var pour la validation du champs email
+
+  if(!filter_var($email, FILTER_VALIDATE_EMAIL)) return "L'adresse email n'est pas valide";
+
+  if(empty($password)) return "Informations manquantes";
+
+  $stmt =$this->conn->prepare("SELECT * FROM users WHERE email = :email");
+  $stmt->execute([$email]);
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  // si l'inscription est valide un message de succès est envoyé sinon un message d'erreur indiquant les informations manquantes
+  if($user && password_verify($password, $user['password'])) {
+    return "Connexion réussie";
+  } else {
+    return "L'email ou le mot de passe est incorrect";
+  }
+}
 }
