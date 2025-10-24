@@ -24,6 +24,11 @@ class Seance {
   }
 
   // rechercher une seance par son id
+  public function getById($id){
+    $stmt = $this->conn->prepare("SELECT * FROM seances WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  }
 
 
   // modifier une seance
