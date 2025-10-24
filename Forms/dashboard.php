@@ -49,3 +49,36 @@ if(isset($_GET['delete'])){
   exit;
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Dashboard PlumbLifterPlaner🏋️‍♂️</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Bienvenue, <?=htmlspecialchars($user['prenom'])?></h1>
+
+  <?php if($message): ?>
+    <p style="color: green;"><?= htmlspecialchars($message) ?></p>
+    <?php endif; ?>
+
+
+    <form method="POST">
+      <label> Type de séance :</label>
+      <input type="text" name="type" required><br>
+
+      <label>Durée de la séance :</label>
+      <input type="text" name="duree" placeholder="ex: 45min" required><br>
+
+      <label>Date de la séance :</label>
+      <input type="datetime-local" name="date" required><br>
+
+      <label>Notes :</label>
+      <textarea name="notes"></textarea><br>
+
+      <button type="submit" name="ajouter">Ajouter</button>
+    </form>
+</body>
+</html>
