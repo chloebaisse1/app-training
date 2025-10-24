@@ -67,7 +67,7 @@ class User {
 
   // si l'inscription est valide un message de succès est envoyé sinon un message d'erreur indiquant les informations manquantes
   if($user && password_verify($password, $user['password'])) {
-    return "Connexion réussie";
+    return true;
   } else {
     return "L'email ou le mot de passe est incorrect";
   }
