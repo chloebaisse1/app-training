@@ -30,8 +30,11 @@ class Seance {
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
-
   // modifier une seance
+  public function update($id, $type, $duree, $date, $notes){
+    $stmt = $this->conn->prepare("UPDATE seances SET type = ?, duree = ?, date = ?, notes = ? WHERE id = ?");
+    return $stmt->execute([$type, $duree, $date, $notes, $id]);
+  }
 
   // supprimer une seance
 
