@@ -16,7 +16,12 @@ class Seance {
     $stmt = $this->conn->prepare("INSERT INTO seances (user_id, type, duree, date, notes) VALUE (?, ?, ?, ?, ?)");
     return $stmt->execute([$user_id, $type, $duree, $date, $notes]);
   }
-  // récupération d'une seance
+  // récupération des seances d'un utilisateur
+  public function getAllByUser($user_id){
+    $stmt = $this->conn->prepare("SELECT * FROM seances WHERE user_id = ? ORDER BY date DESC");
+    $stmt->execute([$user_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 
   // rechercher une seance par son id
 
@@ -24,4 +29,5 @@ class Seance {
   // modifier une seance
 
   // supprimer une seance
+
 }
