@@ -81,7 +81,7 @@ if(isset($_GET['success'])){
             <input type="password" class="form-control" id="password" name="password" required minlength="8">
           </div>
 
-          <button type="submit" class="btn btn-primary">S’inscrire</button>
+          <button type="submit" class="btn w-100" style="background-color: #5bc0de">S’inscrire</button>
         </form>
       </div>
      </div>

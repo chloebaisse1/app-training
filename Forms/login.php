@@ -68,7 +68,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <input type="password" class="form-control" id="password" name="password" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Se connecter</button>
+        <button type="submit" class="btn w-100" style="background-color: #5bc0de">Se connecter</button>
       </form>
       </div>
     </div>
