@@ -19,3 +19,24 @@ $conn = $db->connect();
 $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// creation de nouvelle seance
+$seance = new Seance();
+// instancié a vide afin de generer le message une fois la demande faite
+$message= "";
+
+// ajout de la seance
+// champs requis pour creer une seance
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])){
+  $type = $_POST['type'] ?? '';
+  $duree = $_POST['duree'] ?? '';
+  $date = $_POST['date'] ?? '';
+  $notes = $_POST['notes'] ?? '';
+
+  if($seance->create($user_id, $type, $duree, $date, $notes)){
+    // si la creation est réussie
+    $message = " ✅ La seance a bien été créée";
+  } else {
+    $message = " ❌ Une erreur est survenue lors de la création de la seance";
+  }
+}
