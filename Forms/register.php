@@ -83,6 +83,14 @@ if(isset($_GET['success'])){
 
           <button type="submit" class="btn w-100" style="background-color: #5bc0de">S’inscrire</button>
         </form>
+
+        <p class="text-center mt-3 mb-0">
+          Déjà inscrit ?
+          <a href="login.php" class="text-decoration-none fw-bold" style="color: #5bc0de;">
+            Se connecter ici
+          </a>
+        </p>
+
       </div>
      </div>
     </div>
